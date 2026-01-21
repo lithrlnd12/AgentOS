@@ -79,7 +79,10 @@ class ClaudeApiClient {
         // TODO: Implement SSE streaming
         // For now, fall back to non-streaming
         val response = createMessage(messages, systemPrompt, tools, maxTokens)
-        emit(StreamEvent.ContentDelta(response.content.firstOrNull()?.text ?: ""))
+        val textContent = response.content
+            .filterIsInstance<ContentBlock.Text>()
+            .firstOrNull()?.text ?: ""
+        emit(StreamEvent.ContentDelta(textContent))
         emit(StreamEvent.MessageComplete(response))
     }.flowOn(Dispatchers.IO)
 

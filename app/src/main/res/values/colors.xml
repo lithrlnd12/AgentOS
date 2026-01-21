@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- AgentOS Brand Colors -->
+
+    <!-- Primary - Cyan/Teal accent -->
+    <color name="cyan_primary">#00D9FF</color>
+    <color name="cyan_light">#67E8FF</color>
+    <color name="cyan_dark">#00A8CC</color>
+
+    <!-- Background - Dark Navy Blue -->
+    <color name="navy_dark">#0D1B2A</color>
+    <color name="navy_primary">#1B2838</color>
+    <color name="navy_light">#1E3A5F</color>
+    <color name="navy_surface">#243B53</color>
+
+    <!-- Accent - Silver/Gray -->
+    <color name="silver">#B8C5D6</color>
+    <color name="silver_light">#D4DEE8</color>
+    <color name="silver_dark">#8A99AB</color>
+
+    <!-- Semantic Colors -->
+    <color name="success">#4CAF50</color>
+    <color name="warning">#FF9800</color>
+    <color name="error">#F44336</color>
+
+    <!-- Launcher Icon Colors -->
+    <color name="ic_launcher_background">#1B2838</color>
+</resources>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/widget_container"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/widget_background"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:padding="8dp">
+
+    <!-- AgentOS Logo -->
+    <ImageView
+        android:id="@+id/widget_logo"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_marginStart="8dp"
+        android:contentDescription="@string/app_name"
+        android:src="@drawable/ic_agentos_logo" />
+
+    <!-- Search hint text -->
+    <TextView
+        android:id="@+id/widget_search_text"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_weight="1"
+        android:text="@string/widget_hint"
+        android:textColor="@color/silver_dark"
+        android:textSize="14sp" />
+
+    <!-- Mic button -->
+    <ImageButton
+        android:id="@+id/widget_mic_button"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginEnd="4dp"
+        android:background="@drawable/widget_mic_background"
+        android:contentDescription="@string/voice_activation"
+        android:src="@drawable/ic_mic"
+        android:tint="@color/cyan_primary" />
+
+</LinearLayout>

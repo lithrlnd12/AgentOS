@@ -1,7 +1,5 @@
 package com.agentos.ui.chat
 
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import com.agentos.accessibility.AgentAccessibilityService
 import com.agentos.ai.ConversationEngine
 import com.agentos.ai.IntentClassifier
@@ -14,7 +12,10 @@ import com.agentos.voice.VoicePipeline
 import com.agentos.voice.VoiceState
 import com.agentos.workflow.WorkflowEngine
 import com.agentos.workflow.WorkflowState
-import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -22,8 +23,14 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import java.util.UUID
 import javax.inject.Inject
+import javax.inject.Singleton
 
-@HiltViewModel
+/**
+ * ChatViewModel as a singleton class (not an Android ViewModel).
+ * This allows it to be shared between the main Activity and the floating overlay Service,
+ * ensuring state synchronization across both UI contexts.
+ */
+@Singleton
 class ChatViewModel @Inject constructor(
     private val workflowEngine: WorkflowEngine,
     private val voicePipeline: VoicePipeline,
@@ -31,7 +38,9 @@ class ChatViewModel @Inject constructor(
     private val intentClassifier: IntentClassifier,
     private val conversationEngine: ConversationEngine,
     private val conversationRepository: ConversationRepository
-) : ViewModel() {
+) {
+    // Custom coroutine scope (replaces viewModelScope since this is no longer a ViewModel)
+    private val scope = CoroutineScope(SupervisorJob() + Dispatchers.Main)
 
     // Flag to use OpenAI Realtime API for voice (vs system STT/TTS)
     private var useOpenAIVoice = true
@@ -44,7 +53,7 @@ class ChatViewModel @Inject constructor(
 
     init {
         // Observe workflow state
-        viewModelScope.launch {
+        scope.launch {
             workflowEngine.state.collect { workflowState ->
                 _uiState.update { state ->
                     state.copy(
@@ -71,14 +80,14 @@ class ChatViewModel @Inject constructor(
         }
 
         // Observe accessibility service status
-        viewModelScope.launch {
+        scope.launch {
             AgentAccessibilityService.instance.collect { service ->
                 _uiState.update { it.copy(isAccessibilityEnabled = service != null) }
             }
         }
 
         // Observe OpenAI voice state
-        viewModelScope.launch {
+        scope.launch {
             openAIVoiceManager.state.collect { voiceState ->
                 _uiState.update { state ->
                     state.copy(
@@ -99,7 +108,7 @@ class ChatViewModel @Inject constructor(
         }
 
         // Observe OpenAI voice transcripts
-        viewModelScope.launch {
+        scope.launch {
             openAIVoiceManager.transcripts.collect { transcript ->
                 if (transcript.isFinal) {
                     if (transcript.isUser) {
@@ -111,14 +120,14 @@ class ChatViewModel @Inject constructor(
             }
         }
 
-        viewModelScope.launch {
+        scope.launch {
             openAIVoiceManager.isEnabled.collect { enabled ->
                 _uiState.update { it.copy(isVoiceEnabled = enabled) }
             }
         }
 
         // Legacy voice pipeline state (fallback)
-        viewModelScope.launch {
+        scope.launch {
             voicePipeline.state.collect { voiceState ->
                 if (!useOpenAIVoice) {
                     _uiState.update { state ->
@@ -142,7 +151,7 @@ class ChatViewModel @Inject constructor(
             }
         }
 
-        viewModelScope.launch {
+        scope.launch {
             if (!useOpenAIVoice) {
                 voicePipeline.isEnabled.collect { enabled ->
                     _uiState.update { it.copy(isVoiceEnabled = enabled) }
@@ -151,7 +160,7 @@ class ChatViewModel @Inject constructor(
         }
 
         // Load recent conversation history
-        viewModelScope.launch {
+        scope.launch {
             val history = conversationRepository.getRecentMessages(20)
             // History is loaded but not displayed - used for context
         }
@@ -165,7 +174,7 @@ class ChatViewModel @Inject constructor(
         addMessage(userMessage)
 
         // Persist message
-        viewModelScope.launch {
+        scope.launch {
             conversationRepository.saveMessage(Message.user(content))
         }
 
@@ -209,7 +218,7 @@ class ChatViewModel @Inject constructor(
     }
 
     private fun handleConversation(content: String) {
-        viewModelScope.launch {
+        scope.launch {
             _uiState.update { it.copy(isProcessing = true, currentAction = "Thinking...") }
 
             val response = conversationEngine.chat(content)
@@ -241,14 +250,14 @@ class ChatViewModel @Inject constructor(
         }
 
         // Start workflow
-        viewModelScope.launch {
+        scope.launch {
             workflowEngine.execute(content)
         }
     }
 
     private fun handleActionWithContext(content: String) {
         // Get conversation history and pass to workflow engine
-        viewModelScope.launch {
+        scope.launch {
             if (!_uiState.value.isAccessibilityEnabled) {
                 addMessage(ChatMessage.assistant(
                     "I need accessibility permissions to perform this action. " +
@@ -343,7 +352,7 @@ class ChatViewModel @Inject constructor(
     }
 
     fun clearConversation() {
-        viewModelScope.launch {
+        scope.launch {
             conversationRepository.clearConversation()
             conversationEngine.clearHistory()
             _uiState.update { state ->
@@ -356,6 +365,14 @@ class ChatViewModel @Inject constructor(
                 )
             }
         }
+    }
+
+    /**
+     * Clean up resources when the ViewModel is no longer needed.
+     * Call this when the app is being destroyed.
+     */
+    fun onCleared() {
+        scope.cancel()
     }
 
     private fun addMessage(message: ChatMessage) {

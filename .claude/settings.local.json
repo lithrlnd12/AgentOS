@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(bash ./gradlew:*)",
+      "Bash(powershell -Command \"Get-Command adb -ErrorAction SilentlyContinue | Select-Object -ExpandProperty Source; if \\(-not $?\\) { Get-ChildItem -Path ''C:\\\\Users'' -Recurse -Filter ''adb.exe'' -ErrorAction SilentlyContinue | Select-Object -First 1 -ExpandProperty FullName }\")"
+    ]
+  }
+}

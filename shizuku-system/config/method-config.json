@@ -1,0 +1,165 @@
+{
+  "methods": {
+    "shizuku_adb": {
+      "enabled": true,
+      "priority": 1000,
+      "timeout": 30000,
+      "retry_count": 2,
+      "retry_delay": 2000,
+      "fallback_methods": ["shizuku", "root", "accessibility"],
+      "required_permissions": [
+        "moe.shizuku.manager.permission.API_V23",
+        "android.permission.WRITE_SECURE_SETTINGS"
+      ],
+      "supported_actions": [
+        "ADB_SHELL",
+        "ADB_TAP",
+        "ADB_SWIPE",
+        "ADB_TEXT",
+        "ADB_KEYEVENT",
+        "ADB_PACKAGE_LIST",
+        "ADB_PACKAGE_INFO",
+        "ADB_SCREENSHOT",
+        "ADB_SCREEN_RECORD",
+        "ADB_WIFI_CONNECT",
+        "ADB_BLUETOOTH_ENABLE",
+        "ADB_BLUETOOTH_DISABLE",
+        "ADB_MOBILE_DATA_ENABLE",
+        "ADB_MOBILE_DATA_DISABLE",
+        "ADB_AIRPLANE_MODE_ON",
+        "ADB_AIRPLANE_MODE_OFF",
+        "ADB_REBOOT",
+        "ADB_POWEROFF",
+        "ADB_PACKAGE_INSTALL",
+        "ADB_PACKAGE_UNINSTALL",
+        "ADB_PACKAGE_CLEAR_DATA",
+        "ADB_FILE_PUSH",
+        "ADB_FILE_PULL"
+      ],
+      "limitations": {
+        "requires_shizuku": "Requires Shizuku with ADB shell access",
+        "shell_commands": "Limited to shell command availability",
+        "device_security": "Some commands may be restricted by device security"
+      }
+    },
+    "shizuku": {
+      "enabled": true,
+      "priority": 900,
+      "timeout": 25000,
+      "retry_count": 2,
+      "retry_delay": 1500,
+      "fallback_methods": ["root", "accessibility"],
+      "required_permissions": [
+        "moe.shizuku.manager.permission.API_V23",
+        "android.permission.INTERACT_ACROSS_USERS_FULL"
+      ],
+      "supported_actions": [
+        "START_ACTIVITY",
+        "STOP_PACKAGE",
+        "GRANT_PERMISSION",
+        "REVOKE_PERMISSION",
+        "FORCE_STOP",
+        "SET_SYSTEM_SETTING",
+        "GET_SYSTEM_SETTING",
+        "INJECT_INPUT_EVENT",
+        "TAKE_SCREENSHOT"
+      ],
+      "limitations": {
+        "requires_shizuku": "Requires Shizuku to be running and granted",
+        "system_api": "Limited to system API availability",
+        "user_consent": "Requires user consent for Shizuku"
+      }
+    },
+    "root": {
+      "enabled": true,
+      "priority": 800,
+      "timeout": 20000,
+      "retry_count": 1,
+      "retry_delay": 1000,
+      "fallback_methods": ["accessibility"],
+      "required_permissions": [
+        "android.permission.ACCESS_SUPERUSER"
+      ],
+      "supported_actions": [
+        "ROOT_SHELL",
+        "ROOT_FILE_READ",
+        "ROOT_FILE_WRITE",
+        "ROOT_FILE_DELETE",
+        "ROOT_FILE_CHMOD",
+        "ROOT_FILE_CHOWN",
+        "ROOT_MOUNT_RW",
+        "ROOT_MOUNT_RO",
+        "ROOT_SET_PROP",
+        "ROOT_GET_PROP",
+        "ROOT_KILL_PROCESS",
+        "ROOT_SYSTEMCTL_START",
+        "ROOT_SYSTEMCTL_STOP",
+        "ROOT_SYSTEMCTL_RESTART",
+        "ROOT_SERVICE_CALL",
+        "ROOT_DUMPSYS",
+        "ROOT_LOGCAT_CLEAR",
+        "ROOT_LOGCAT_DUMP",
+        "ROOT_REBOOT_RECOVERY",
+        "ROOT_REBOOT_BOOTLOADER",
+        "ROOT_REBOOT_EDL",
+        "ROOT_SHUTDOWN"
+      ],
+      "limitations": {
+        "requires_root": "Requires device to be rooted",
+        "su_binary": "Requires working su binary",
+        "security": "May be blocked by security policies",
+        "selinux": "SELinux may restrict some operations"
+      }
+    },
+    "accessibility": {
+      "enabled": true,
+      "priority": 700,
+      "timeout": 15000,
+      "retry_count": 1,
+      "retry_delay": 1000,
+      "fallback_methods": [],
+      "required_permissions": [
+        "android.permission.BIND_ACCESSIBILITY_SERVICE",
+        "android.permission.WRITE_SECURE_SETTINGS"
+      ],
+      "supported_actions": [
+        "CLICK",
+        "LONG_CLICK",
+        "SCROLL_FORWARD",
+        "SCROLL_BACKWARD",
+        "SWIPE",
+        "TEXT_INPUT",
+        "KEY_EVENT",
+        "FIND_ELEMENT",
+        "FIND_ELEMENTS",
+        "GET_TEXT",
+        "GET_CONTENT_DESCRIPTION",
+        "GET_BOUNDS",
+        "WAIT_FOR_ELEMENT",
+        "BACK",
+        "HOME",
+        "RECENTS",
+        "NOTIFICATIONS",
+        "QUICK_SETTINGS",
+        "GLOBAL_ACTION"
+      ],
+      "limitations": {
+        "requires_service": "Requires accessibility service to be enabled",
+        "ui_interaction": "Limited to UI interaction capabilities",
+        "system_ui": "Cannot interact with system UI on some devices",
+        "performance": "Slower than native methods",
+        "security": "Some apps may block accessibility services"
+      }
+    }
+  },
+  "global_settings": {
+    "auto_fallback": true,
+    "max_fallback_chain_length": 3,
+    "enable_logging": true,
+    "log_level": "INFO",
+    "cache_method_availability": true,
+    "cache_duration": 30000,
+    "enable_metrics": true,
+    "metrics_retention_days": 7
+  }
+}

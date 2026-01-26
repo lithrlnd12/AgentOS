@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- AgentOS Brand Colors -->
+    <color name="agentos_navy">#0D1B24</color>
+    <color name="agentos_dark_blue">#1A2F3D</color>
+    <color name="agentos_cyan">#00D4D4</color>
+    <color name="agentos_cyan_light">#4DFFFF</color>
+    <color name="agentos_silver">#B8C5CC</color>
+    <color name="agentos_white">#FFFFFF</color>
+    <color name="agentos_error">#FF5252</color>
+    <color name="agentos_success">#4CAF50</color>
+
+    <!-- Legacy color names for compatibility -->
+    <color name="agentos_blue">@color/agentos_cyan</color>
+    <color name="agentos_blue_dark">@color/agentos_navy</color>
+    <color name="agentos_blue_light">@color/agentos_cyan_light</color>
+    <color name="agentos_purple">#7B1FA2</color>
+    <color name="agentos_purple_light">#E1BEE7</color>
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+
+    <!-- UI Component Colors (matching Theme.kt) -->
+    <color name="cyan_primary">#00D9FF</color>
+    <color name="cyan_light">#67E8FF</color>
+    <color name="cyan_dark">#00A8CC</color>
+    <color name="navy_dark">#0D1B2A</color>
+    <color name="navy_primary">#1B2838</color>
+    <color name="navy_light">#1E3A5F</color>
+    <color name="navy_surface">#243B53</color>
+    <color name="silver">#B8C5D6</color>
+    <color name="silver_light">#D4DEE8</color>
+    <color name="silver_dark">#8A99AB</color>
+
+    <!-- State Colors -->
+    <color name="state_working">#2196F3</color>
+    <color name="state_warning">#FFC107</color>
+    <color name="state_complete">#4CAF50</color>
+    <color name="state_error">#F44336</color>
+</resources>

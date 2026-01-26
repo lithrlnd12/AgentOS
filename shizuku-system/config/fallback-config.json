@@ -1,0 +1,106 @@
+{
+  "fallback_strategies": {
+    "permission_denied": {
+      "enabled": true,
+      "retry_count": 2,
+      "retry_delay": 2000,
+      "recovery_steps": [
+        "request_permissions",
+        "check_permission_settings",
+        "fallback_to_lower_method"
+      ]
+    },
+    "service_not_available": {
+      "enabled": true,
+      "retry_count": 3,
+      "retry_delay": 1500,
+      "recovery_steps": [
+        "refresh_service_status",
+        "wait_for_service",
+        "restart_service",
+        "fallback_to_lower_method"
+      ]
+    },
+    "timeout": {
+      "enabled": true,
+      "retry_count": 2,
+      "retry_delay": 5000,
+      "recovery_steps": [
+        "increase_timeout",
+        "wait_and_retry",
+        "fallback_to_lower_method"
+      ]
+    },
+    "connection_failed": {
+      "enabled": true,
+      "retry_count": 3,
+      "retry_delay": 3000,
+      "recovery_steps": [
+        "reconnect",
+        "check_network",
+        "refresh_connection",
+        "fallback_to_lower_method"
+      ]
+    },
+    "resource_error": {
+      "enabled": true,
+      "retry_count": 2,
+      "retry_delay": 10000,
+      "recovery_steps": [
+        "clear_cache",
+        "free_memory",
+        "wait_for_resources",
+        "fallback_to_lower_method"
+      ]
+    },
+    "command_failed": {
+      "enabled": true,
+      "retry_count": 2,
+      "retry_delay": 2000,
+      "recovery_steps": [
+        "retry_command",
+        "try_alternative_command",
+        "fallback_to_lower_method"
+      ]
+    }
+  },
+  "recovery_steps": {
+    "wait": {
+      "enabled": true,
+      "duration": 1000,
+      "applicable_errors": ["timeout", "busy", "temporary"]
+    },
+    "refresh_service_status": {
+      "enabled": true,
+      "applicable_errors": ["service_not_available", "binder_died", "disconnected"]
+    },
+    "request_permissions": {
+      "enabled": true,
+      "applicable_errors": ["permission_denied", "not_granted"]
+    },
+    "clear_cache": {
+      "enabled": true,
+      "applicable_errors": ["memory", "cache", "resource"]
+    },
+    "reconnect": {
+      "enabled": true,
+      "applicable_errors": ["connection", "network", "timeout"]
+    },
+    "restart_service": {
+      "enabled": true,
+      "applicable_errors": ["service_crashed", "service_not_available"]
+    },
+    "fallback_to_lower_method": {
+      "enabled": true,
+      "applicable_errors": ["all"]
+    }
+  },
+  "error_patterns": {
+    "permission_denied": ["permission", "denied", "not granted", "requires permission"],
+    "service_not_available": ["not available", "service not connected", "binder died", "disconnected"],
+    "timeout": ["timeout", "timed out", "connection timeout", "operation timeout"],
+    "connection_failed": ["connection", "network", "unreachable", "refused"],
+    "resource_error": ["resource", "memory", "space", "out of memory"],
+    "command_failed": ["command failed", "exit code", "not found", "command not found"]
+  }
+}

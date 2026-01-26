@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.AgentOS" parent="Theme.AppCompat.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/agentos_cyan</item>
+        <item name="colorPrimaryDark">@color/agentos_navy</item>
+        <item name="colorAccent">@color/agentos_cyan</item>
+        <item name="android:windowBackground">@color/agentos_navy</item>
+        <item name="android:statusBarColor">@color/agentos_navy</item>
+        <item name="android:navigationBarColor">@color/agentos_navy</item>
+    </style>
+
+    <style name="Theme.AgentOS.Transparent" parent="Theme.AgentOS">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:backgroundDimEnabled">true</item>
+    </style>
+
+    <style name="Theme.AgentOS.Splash" parent="Theme.AgentOS">
+        <item name="android:windowBackground">@drawable/splash_background</item>
+    </style>
+</resources>

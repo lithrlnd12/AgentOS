@@ -1,0 +1,127 @@
+{
+  "required_permissions": {
+    "shizuku_adb": [
+      {
+        "permission": "moe.shizuku.manager.permission.API_V23",
+        "description": "Shizuku API permission for system-level operations",
+        "required": true,
+        "request_method": "shizuku"
+      },
+      {
+        "permission": "android.permission.WRITE_SECURE_SETTINGS",
+        "description": "Write secure settings permission",
+        "required": true,
+        "request_method": "adb"
+      }
+    ],
+    "shizuku": [
+      {
+        "permission": "moe.shizuku.manager.permission.API_V23",
+        "description": "Shizuku API permission",
+        "required": true,
+        "request_method": "shizuku"
+      },
+      {
+        "permission": "android.permission.INTERACT_ACROSS_USERS_FULL",
+        "description": "Interact across users permission",
+        "required": false,
+        "request_method": "system"
+      }
+    ],
+    "root": [
+      {
+        "permission": "android.permission.ACCESS_SUPERUSER",
+        "description": "Superuser access permission",
+        "required": true,
+        "request_method": "root"
+      }
+    ],
+    "accessibility": [
+      {
+        "permission": "android.permission.BIND_ACCESSIBILITY_SERVICE",
+        "description": "Bind accessibility service permission",
+        "required": true,
+        "request_method": "manifest"
+      },
+      {
+        "permission": "android.permission.WRITE_SECURE_SETTINGS",
+        "description": "Write secure settings permission",
+        "required": false,
+        "request_method": "adb"
+      }
+    ]
+  },
+  "permission_request_methods": {
+    "shizuku": {
+      "description": "Request via Shizuku framework",
+      "implementation": "Shizuku.requestPermission()",
+      "requires_user_interaction": true
+    },
+    "adb": {
+      "description": "Grant via ADB command",
+      "implementation": "adb shell pm grant package.name.permission",
+      "requires_user_interaction": false
+    },
+    "root": {
+      "description": "Grant via root access",
+      "implementation": "pm grant package.name.permission",
+      "requires_user_interaction": false
+    },
+    "system": {
+      "description": "System-level permission",
+      "implementation": "System signature or privileged app",
+      "requires_user_interaction": false
+    },
+    "manifest": {
+      "description": "Declared in manifest",
+      "implementation": "AndroidManifest.xml declaration",
+      "requires_user_interaction": false
+    }
+  },
+  "permission_troubleshooting": {
+    "moe.shizuku.manager.permission.API_V23": {
+      "common_issues": [
+        "Shizuku not installed",
+        "Shizuku not running",
+        "Permission denied by user"
+      ],
+      "solutions": [
+        "Install Shizuku from app store",
+        "Start Shizuku service",
+        "Grant permission in Shizuku app"
+      ]
+    },
+    "android.permission.WRITE_SECURE_SETTINGS": {
+      "common_issues": [
+        "Permission requires ADB or root",
+        "Not available to regular apps"
+      ],
+      "solutions": [
+        "Grant via ADB: adb shell pm grant package.name android.permission.WRITE_SECURE_SETTINGS",
+        "Use root method to grant permission"
+      ]
+    },
+    "android.permission.ACCESS_SUPERUSER": {
+      "common_issues": [
+        "Device not rooted",
+        "Superuser app not installed",
+        "Permission denied by superuser app"
+      ],
+      "solutions": [
+        "Root the device",
+        "Install superuser management app",
+        "Grant permission in superuser app"
+      ]
+    },
+    "android.permission.BIND_ACCESSIBILITY_SERVICE": {
+      "common_issues": [
+        "Service not declared in manifest",
+        "Service not enabled by user"
+      ],
+      "solutions": [
+        "Declare accessibility service in AndroidManifest.xml",
+        "Enable service in Settings -\u003e Accessibility"
+      ]
+    }
+  }
+}

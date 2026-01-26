@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">AgentOS</string>
+    <string name="accessibility_service_label">AgentOS Accessibility Service</string>
+    <string name="accessibility_service_description">AgentOS uses accessibility services to automate UI interactions across apps</string>
+    <string name="media_projection_service_label">AgentOS Screen Capture</string>
+    <string name="voice_processing_service_label">AgentOS Voice Processing</string>
+    <string name="coordination_service_label">AgentOS Agent Coordination</string>
+    
+    <!-- Voice Commands -->
+    <string name="voice_command_hint">Say "Hey AgentOS" to start voice command</string>
+    <string name="voice_processing">Processing voice command...</string>
+    <string name="voice_command_recognized">Command recognized: %s</string>
+    <string name="voice_command_error">Voice command failed: %s</string>
+    
+    <!-- UI Elements -->
+    <string name="main_title">AgentOS</string>
+    <string name="voice_tab">Voice</string>
+    <string name="vision_tab">Vision</string>
+    <string name="actions_tab">Actions</string>
+    <string name="settings_tab">Settings</string>
+    
+    <!-- Permissions -->
+    <string name="permission_microphone_title">Microphone Access</string>
+    <string name="permission_microphone_description">AgentOS needs microphone access to process voice commands</string>
+    <string name="permission_screen_capture_title">Screen Capture</string>
+    <string name="permission_screen_capture_description">AgentOS needs screen capture permission to analyze UI elements</string>
+    <string name="permission_accessibility_title">Accessibility Service</string>
+    <string name="permission_accessibility_description">AgentOS needs accessibility service to automate UI interactions</string>
+    
+    <!-- Errors -->
+    <string name="error_api_key_missing">OpenAI API key not configured. Please add your API key in settings.</string>
+    <string name="error_claude_key_missing">Claude API key not configured. Please add your API key in settings.</string>
+    <string name="error_network">Network error. Please check your connection.</string>
+    <string name="error_permission_denied">Permission denied. Please grant required permissions.</string>
+    
+    <!-- Success Messages -->
+    <string name="success_voice_command">Voice command processed successfully</string>
+    <string name="success_action_completed">Action completed successfully</string>
+    <string name="success_task_completed">Task completed: %s</string>
+    
+    <!-- Warnings -->
+    <string name="warning_detection_risk">High detection risk detected. Adjusting behavior patterns.</string>
+    <string name="warning_low_confidence">Low confidence in voice recognition. Please speak clearly.</string>
+    
+    <!-- Instructions -->
+    <string name="instruction_voice_setup">Tap the microphone button and speak your command naturally.</string>
+    <string name="instruction_first_time">Welcome to AgentOS! Let\'s set up your voice assistant.</string>
+    <string name="instruction_api_setup">Please add your OpenAI and Claude API keys to enable voice recognition and vision analysis.</string>
+
+    <!-- Widget -->
+    <string name="widget_hint">Ask AgentOS...</string>
+    <string name="widget_description">Quick access to AgentOS assistant</string>
+    <string name="voice_activation">Voice activation</string>
+
+    <!-- Quick Settings Tile -->
+    <string name="tile_label">AgentOS</string>
+    <string name="tile_subtitle_inactive">Tap to activate</string>
+    <string name="tile_subtitle_active">Tap to expand</string>
+
+    <!-- Floating Service -->
+    <string name="floating_service_channel">AgentOS Floating Assistant</string>
+    <string name="floating_notification_title">AgentOS Active</string>
+    <string name="floating_notification_text">Tap bubble or say \"AgentOS\" to activate</string>
+
+    <!-- Interaction Modes -->
+    <string name="mode_conversation">Conversation</string>
+    <string name="mode_action">Action</string>
+    <string name="mode_auto">Auto</string>
+</resources>
